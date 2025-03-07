@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Richie Mae Omandam | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Richie Mae Omandam | Portfolio</title>    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
@@ -51,8 +52,8 @@
             background: white;
             padding: 30px;
             margin: 20px auto;
-            width: 80%;
-            max-width: 800px;
+            width: 90%;
+            max-width: 1000px;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
@@ -65,7 +66,7 @@
 
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
             text-align: left;
         }
 
@@ -90,9 +91,11 @@
         <table id="courses-table">
             <thead>
                 <tr>
-                    <th>Year</th>
+                    <th>Year Level</th>
                     <th>Semester</th>
-                    <th>Subjects</th>
+                    <th>Course Code</th>
+                    <th>Description</th>
+                    <th>Credit Units</th>
                 </tr>
             </thead>
             <tbody id="courses-body"></tbody>
@@ -101,7 +104,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const jsonURL = 'course.json';  
+            const jsonURL = 'course.json'; // Make sure course.json is accessible
 
             fetch(jsonURL)
                 .then(response => {
@@ -118,15 +121,16 @@
             function displayCourses(courses) {
                 let tableBody = document.getElementById("courses-body");
                 tableBody.innerHTML = "";
+                
                 courses.forEach(course => {
-                    course.subjects.forEach(subject => {
-                        let row = `<tr>
-                            <td>${course.year}</td>
-                            <td>${course.semester}</td>
-                            <td>${subject}</td>
-                        </tr>`;
-                        tableBody.innerHTML += row;
-                    });
+                    let row = `<tr>
+                        <td>${course.year_level}</td>
+                        <td>${course.sem}</td>
+                        <td>${course.code}</td>
+                        <td>${course.description}</td>
+                        <td>${course.credit}</td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
                 });
             }
         });
