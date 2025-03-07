@@ -144,7 +144,39 @@
                 });
             }
 
-          
+            document.getElementById("search").addEventListener("input", function() {
+                let keyword = this.value.toLowerCase();
+                let filteredSubjects = [];
+
+                // Filter subjects based on keyword
+                allCourses.forEach(course => {
+                    course.subjects.forEach(subject => {
+                        if (subject.toLowerCase().includes(keyword)) {
+                            filteredSubjects.push({
+                                year: course.year,
+                                semester: course.semester,
+                                subject: subject
+                            });
+                        }
+                    });
+                });
+
+                // Display filtered subjects
+                let tableBody = document.getElementById("courses-body");
+                tableBody.innerHTML = "";
+                if (filteredSubjects.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="3">No subjects found</td></tr>`;
+                } else {
+                    filteredSubjects.forEach(course => {
+                        let row = `<tr>
+                            <td>${course.year}</td>
+                            <td>${course.semester}</td>
+                            <td>${course.subject}</td>
+                        </tr>`;
+                        tableBody.innerHTML += row;
+                    });
+                }
+            });
         });
     </script>
 </body>
