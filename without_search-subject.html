@@ -73,13 +73,6 @@
             background-color: #f4a261;
             color: white;
         }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-        }
     </style>
 </head>
 <body>
@@ -88,33 +81,27 @@
         <div class="header-text">
             <h1>Richie Mae Omandam</h1>
             <a href="portfolio.html" class="btn">Home</a>
-             </div>
+        </div>
         <img src="profile.jpg" alt="Richie Mae Omandam" class="profile-pic">
     </header>
    
-
-      
-        <div class="card">
-            <h2>Subjects Taken</h2>
-            
-            <table id="courses-table">
-                <thead>
-                    <tr>
-                        <th>Year</th>
-                        <th>Semester</th>
-                        <th>Subjects</th>
-                    </tr>
-                </thead>
-                <tbody id="courses-body"></tbody>
-            </table>
-        </div>
-
+    <div class="card">
+        <h2>Subjects Taken</h2>
+        <table id="courses-table">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Semester</th>
+                    <th>Subjects</th>
+                </tr>
+            </thead>
+            <tbody id="courses-body"></tbody>
+        </table>
+    </div>
 
     <script>
-        let allCourses = [];  // Stores all courses for searching
-
         document.addEventListener("DOMContentLoaded", function() {
-            const jsonURL = 'course.json';  // Change this if using GitHub Pages
+            const jsonURL = 'course.json';  
 
             fetch(jsonURL)
                 .then(response => {
@@ -124,8 +111,7 @@
                     return response.json();
                 })
                 .then(data => {
-                    allCourses = data.courses; // Save data for searching
-                    displayCourses(allCourses);
+                    displayCourses(data.courses);
                 })
                 .catch(error => console.error('Error loading JSON:', error));
 
@@ -143,41 +129,8 @@
                     });
                 });
             }
-
-            document.getElementById("search").addEventListener("input", function() {
-                let keyword = this.value.toLowerCase();
-                let filteredSubjects = [];
-
-                // Filter subjects based on keyword
-                allCourses.forEach(course => {
-                    course.subjects.forEach(subject => {
-                        if (subject.toLowerCase().includes(keyword)) {
-                            filteredSubjects.push({
-                                year: course.year,
-                                semester: course.semester,
-                                subject: subject
-                            });
-                        }
-                    });
-                });
-
-                // Display filtered subjects
-                let tableBody = document.getElementById("courses-body");
-                tableBody.innerHTML = "";
-                if (filteredSubjects.length === 0) {
-                    tableBody.innerHTML = `<tr><td colspan="3">No subjects found</td></tr>`;
-                } else {
-                    filteredSubjects.forEach(course => {
-                        let row = `<tr>
-                            <td>${course.year}</td>
-                            <td>${course.semester}</td>
-                            <td>${course.subject}</td>
-                        </tr>`;
-                        tableBody.innerHTML += row;
-                    });
-                }
-            });
         });
     </script>
+
 </body>
 </html>
