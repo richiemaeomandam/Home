@@ -73,6 +73,13 @@
             background-color: #f4a261;
             color: white;
         }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -81,27 +88,33 @@
         <div class="header-text">
             <h1>Richie Mae Omandam</h1>
             <a href="portfolio.html" class="btn">Home</a>
-        </div>
+             </div>
         <img src="profile.jpg" alt="Richie Mae Omandam" class="profile-pic">
     </header>
+   
 
-    <div class="card">
-        <h2>Subjects Taken</h2>
-        <table id="courses-table">
-            <thead>
-                <tr>
-                    <th>Year</th>
-                    <th>Semester</th>
-                    <th>Subjects</th>
-                </tr>
-            </thead>
-            <tbody id="courses-body"></tbody>
-        </table>
-    </div>
+      
+        <div class="card">
+            <h2>Subjects Taken</h2>
+            
+            <table id="courses-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Semester</th>
+                        <th>Subjects</th>
+                    </tr>
+                </thead>
+                <tbody id="courses-body"></tbody>
+            </table>
+        </div>
+
 
     <script>
+        let allCourses = [];  // Stores all courses for searching
+
         document.addEventListener("DOMContentLoaded", function() {
-            const jsonURL = 'course.json'; // Change this if using GitHub Pages
+            const jsonURL = 'course.json';  // Change this if using GitHub Pages
 
             fetch(jsonURL)
                 .then(response => {
@@ -111,7 +124,8 @@
                     return response.json();
                 })
                 .then(data => {
-                    displayCourses(data.courses);
+                    allCourses = data.courses; // Save data for searching
+                    displayCourses(allCourses);
                 })
                 .catch(error => console.error('Error loading JSON:', error));
 
@@ -129,6 +143,8 @@
                     });
                 });
             }
+
+          
         });
     </script>
 </body>
